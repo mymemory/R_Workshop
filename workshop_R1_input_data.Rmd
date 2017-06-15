@@ -1,7 +1,6 @@
 ---
-title: "workshop_R1"
+title: "workshop_R2"
 output: html_document
-auther: "Montree"
 ---
 
 ```{r setup, include=FALSE}
@@ -26,28 +25,11 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
+อ่านข้อมูลจาก text file
 ```{r}
-var.1 = c(0, 1, 2, 3)
-var.2 = c("learn", "R")
+data = read.table("input.txt")
+print(data)
 ```
-```{r}
-cars <- c(1, 3, 6, 4, 9)
-plot(cars)
-```
-
-```{r}
-emp.data = data.frame(
-  
-  emp_id = c(1:5),
-  emp_name = c("Rick", "Dan", "Micheal", "Ruan", "Gary"),
-  salary = c(623.3, 515.2, 611.0, 729.0, 843.25)
-  
-)
-
-print(emp.data)
-
-```
-
 
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
