@@ -1,0 +1,101 @@
+---
+title: "workshop_R3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Read survey csv that have problem data
+```{r}
+survey.program1 = read.csv("survey_messy.csv", header = TRUE)
+print(survey.program1)
+```
+
+
+```{r}
+tv.hours.messey <- survey.program1$TVhours
+as.character(tv.hours.messey)[1:30]
+```
+
+
+ทำข้อมูลให้สะอาด ค่าไหนที่ควรเป็นตัวเลข ต่กรอกมาไม่ถูก ก็จะให้เป็น NA ซึ่งทางสถิติ จะไม่ให้ใส่ค่า 0
+```{r}
+as.numeric(as.character(tv.hours.messey))[1:30]
+```
+
+```{r}
+typeof(as.numeric(as.character(tv.hours.messey)))
+```
+
+```{r}
+tv.hours.strings <- as.character(tv.hours.messey)
+tv.hours.strings
+```
+
+แทนที่ตัวอักษรที่ไม่ต้องการออกไปด้วยค่าว่าง
+```{r}
+gsub("[^0-9]", "", tv.hours.strings)
+```
+
+```{r}
+tv.hours.clean <- as.numeric(gsub("[^0-9]", "", tv.hours.strings))
+tv.hours.clean
+```
+
+
+Transform, replace column value with cleaned data 
+```{r}
+survey <- transform(survey.program1, TVhours = as.numeric(gsub("[^0-9]", "", TVhours)))
+str(survey)
+```
+
+```{r}
+qplot(x = EngineSize, y = Price, data = Cars93)
+```
+
+```{r}
+ggplot(Cars93, aes(x=EngineSize, y=Price)) + geom_point()
+```
+
+With color, shape
+```{r}
+ggplot(Cars93, aes(x=EngineSize, y=Price, color = Type, shape = DriveTrain)) + geom_point()
+```
+
+
+```{r}
+ggplot(Cars93, aes(x=EngineSize, y=Price, color = Type,label = DriveTrain)) + geom_label()
+```
+
+
+เปลี่ยนชื่อ columns
+```{r}
+colnames(birthwt)
+
+colnames(birthwt) <- c("birthwt.below.2500", "mother.age", "mother.weight", "race", "mother.smokes", "previous.prem.labor", "hypertension", "uterine.irr", "physician.visits", "birthwt.grams")
+
+colnames(birthwt)
+
+```
+
+จัดข้อมูลให้สวยงาม
+```{r}
+birthwt <- transform(birthwt, 
+  race = as.factor(mapvalues(race, c(1,2,3), c("white", "black", "other"))), 
+  mother.smokes = as.factor(mapvalues(mother.smokes, c(0,1), c("no", "yes"))), 
+  hypertension = as.factor(mapvalues(hypertension, c(0, 1), c("no", "yes"))), 
+  uterine.irr = as.factor(mapvalues(uterine.irr, c(0, 1), c("no", "yes"))), 
+  birthwt.below.2500 = as.factor(mapvalues(birthwt.below.2500, c(0, 1), c("no", "yes"))))
+  
+```
+
+
+```{r}
+sleepData <- select(msleep, -name, -sleep_total)
+print(sleepData)
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
