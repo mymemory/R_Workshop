@@ -1,0 +1,39 @@
+---
+title: "workshop_R4_webdata"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+web scraping with R
+```{r}
+library(MASS)
+library(rvest)
+arrival_movie <- read_html("http://www.imdb.com/title/tt2543164")
+
+arrival_movie %>%
+  html_nodes("#titleCast .itemprop span") %>%
+  html_text()
+
+```
+
+pull pdf file via pdftools
+```{r}
+library("pdftools")
+txt <- pdf_text("http://arxiv.org/pdf/1406.4806.pdf")
+
+```
+
+json
+```{r}
+library("rjson")
+json_data <- fromJSON(file="fb.json")
+View(json_data)
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

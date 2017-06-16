@@ -1,1 +1,4 @@
 https://www.rstudio.com/resources/cheatsheets/
+
+package สำหรับดูดเว็บ
+rvest, curl
