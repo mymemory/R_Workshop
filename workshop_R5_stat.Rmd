@@ -1,0 +1,60 @@
+---
+title: "workshop_R5"
+author: "montree"
+date: "June 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(plyr)
+library(ggplot2)
+```
+
+## R Markdow
+
+```{r}
+library("ggplot2")
+ggplot(x=mother.smokes, y=birthwt.grams, geom="boxplot", data=birthwt, xlab="Mother smokes", ylab="Birthweight (grams)", fill = I("lightblue"))
+
+```
+
+aggregate
+```{r}
+colnames(birthwt) <- c("birthwt.below.2500", "mother.age", "mother.weight", "race", "mother.smokes", "previous.prem.labor", "hypertension", "uterine.irr", "physician.visits", "birthwt.grams")
+
+
+
+aggregate(birthwt.grams ~ mother.smokes, data = birthwt, FUN=function(x) { c(mean(x), sd=sd(x)) })
+```
+
+```{r}
+
+birthwt.t.test <- t.test(birthwt.grams ~ mother.smokes, data=birthwt)
+birthwt.t.test
+```
+
+```{r}
+birthwt.t.test$estimate
+```
+
+ค่าความน่าเชื่อถือ
+```{r}
+birthwt.t.test$conf.int
+```
+
+
+
+```{r}
+car93.t.test <- t.test(MPG.highway ~ Origin, data=Cars93)
+car93.t.test
+```
+
+```{r}
+car93.t.test$p.value
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

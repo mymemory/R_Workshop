@@ -1,0 +1,27 @@
+---
+title: "workshop_R6_regression"
+author: "montree"
+date: "June 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+หาค่า regression เพื่อจะ predict
+```{r}
+x <- c(151,174,138,186,128,136,179,163,152,131)
+y <- c(63,81,56,91,47,57,76,72,62,48)
+
+```
+
+lm คือหา regression เพื่อใช้ในการตัดสินใจสูงกว่า t-test
+เช่นอายุ เป็นปัจจัยต่อการกินกาแฟหรือเปล่า
+
+เครื่องหมาย *** คือมีนัยยะสำญคั
+```{r}
+relation <- lm(y~x)
+print(summary(relation))
+```
+
