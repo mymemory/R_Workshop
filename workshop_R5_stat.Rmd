@@ -15,8 +15,8 @@ library(ggplot2)
 ## R Markdow
 
 ```{r}
-library("ggplot2")
-ggplot(x=mother.smokes, y=birthwt.grams, geom="boxplot", data=birthwt, xlab="Mother smokes", ylab="Birthweight (grams)", fill = I("lightblue"))
+
+qplot(x=mother.smokes, y=birthwt.grams, geom="boxplot", data=birthwt, xlab="Mother smokes", ylab="Birthweight (grams)", fill = I("lightblue"))
 
 ```
 
@@ -38,6 +38,8 @@ birthwt.t.test
 ```{r}
 birthwt.t.test$estimate
 ```
+
+
 
 ค่าความน่าเชื่อถือ
 ```{r}

@@ -1,0 +1,29 @@
+---
+title: "workshop_R7_chart"
+author: "montree"
+date: "June 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(plyr)
+library(ggplot2)
+```
+
+
+```{r}
+qplot(x=EngineSize, y=MPG.city, data=Cars93, colour=Cylinders, shape=Cylinders, xlab="Engine Size (litres)", ylab="Fuel economy (MPG city)")
+```
+
+```{r}
+
+
+diamonds.plot <- ggplot(data=diamonds, aes(x=carat, y=price, colour=color))
+diamonds.plot + geom_point() + facet_wrap(~ cut)
+
+
+
+```
+

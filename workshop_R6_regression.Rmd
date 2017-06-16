@@ -7,6 +7,10 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(plyr)
+library(ggplot2)
+
 ```
 
 หาค่า regression เพื่อจะ predict
@@ -23,5 +27,61 @@ lm คือหา regression เพื่อใช้ในการตัด�
 ```{r}
 relation <- lm(y~x)
 print(summary(relation))
+```
+
+```{r}
+print(mtcars)
+```
+
+
+```{r}
+
+input_r <- mtcars[,c("mpg","disp","hp","wt")]
+print(head(input_r))
+```
+
+
+
+multi regression
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt, data = input_r)
+print(model)
+```
+
+```{r}
+a <- coef(model)[1]
+xdisp <- coef(model)[2]
+xhp <- coef(model)[3]
+xwt <- coef(model)[4]
+
+print(a)
+print(xdisp)
+print(xhp)
+print(xwt)
+
+
+```
+
+```{r}
+colnames(birthwt) <- c("birthwt.below.2500", "mother.age", "mother.weight", "race", "mother.smokes", "previous.prem.labor", "hypertension", "uterine.irr", "physician.visits", "birthwt.grams")
+
+
+birthwt <- transform(birthwt, 
+  race = as.factor(mapvalues(race, c(1,2,3), c("white", "black", "other"))), 
+  mother.smokes = as.factor(mapvalues(mother.smokes, c(0,1), c("no", "yes"))), 
+  hypertension = as.factor(mapvalues(hypertension, c(0, 1), c("no", "yes"))), 
+  uterine.irr = as.factor(mapvalues(uterine.irr, c(0, 1), c("no", "yes"))), 
+  birthwt.below.2500 = as.factor(mapvalues(birthwt.below.2500, c(0, 1), c("no", "yes"))))
+
+
+birthwt.lm <- lm(birthwt.grams ~ mother.age + mother.smokes, data = birthwt)
+print(birthwt.lm)
+```
+
+```{r}
+
+qplot(data=birthwt, x=mother.age, y=birthwt.grams, colour=mother.smokes)  + stat_smooth(method="lm", fullrange=TRUE)
+
 ```
 
